@@ -11,10 +11,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JPanel;
 
-/**
-  * Provides I/O.
-  * 
-  *
+/** Provides I/O.
    */
  public class GameBoard extends JPanel {
 
@@ -45,7 +42,7 @@ private Point lastMove;
 private AI AIplayer;
 
 public GameBoard(Integer size) {
-    SIZE = size;//(size==null && size==0) ? 9:size;
+    SIZE = (size==null && size==0) ? 9:size;
     N_OF_TILES = SIZE - 1;
     grid = new Grid(SIZE);
     // Black always starts
@@ -56,22 +53,20 @@ public GameBoard(Integer size) {
 
         @Override
         public void mouseReleased(MouseEvent e) {
+            repaint();
             // Converts to float for float division and then rounds to
             // provide nearest intersection.
             int row = Math.round((float) (e.getY() - BORDER_SIZE)
                     / TILE_SIZE);
             int col = Math.round((float) (e.getX() - BORDER_SIZE)
                     / TILE_SIZE);
-            // DEBUG INFO
-            // System.out.println(String.format("y: %d, x: %d", row, col));
-
             // Check wherever it's valid
             if (row >= SIZE || col >= SIZE || row < 0 || col < 0) 
                 return;
             if (grid.isOccupied(row, col)) 
                 return;
             if(checkSuicide(row, col, current_player)){
-                System.out.println("Suicide move Black");
+                System.out.println("Suicide move of Black");
                 return;
             }
 
@@ -79,16 +74,17 @@ public GameBoard(Integer size) {
             lastMove = new Point(col, row);
             repaint();
             
-            grid = AIplayer.play(grid);
-            //lastMove = AIplayer.getLastMove();
+            grid = AIplayer.play(grid, lastMove);
+            lastMove = AIplayer.getLastMove();
             // Switch current player
             /* if (current_player == State.BLACK) 
                 current_player = State.WHITE;
             else 
                 current_player = State.BLACK;
             */
-            repaint();
+            //repaint();
         }
+        
     });
 }
 public boolean checkSuicide(int row, int col, State player){

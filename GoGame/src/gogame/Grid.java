@@ -10,10 +10,11 @@ import gogame.GameBoard.State;
 public class Grid {
 
 public final int SIZE;
+public int ScoreBlack =0, ScoreWhite =0;
 /**
  * [row][column]
  */
-private Stone[][] stones;
+public  Stone[][] stones;
 
 public Grid(int size) {
     SIZE = size;
@@ -22,7 +23,6 @@ public Grid(int size) {
 
 /**
  * Adds Stone to Grid.
- * 
  * @param row
  * @param col
  * @param black
@@ -64,15 +64,17 @@ public void addStone(int row, int col, State state) {
 
         // If it's different color than newStone check him
         if (neighbor.state != newStone.state) {
-            checkStone(neighbor);
-            continue;
+            checkStone(neighbor); 
+            continue; 
         }
 
         if (neighbor.chain != null) {
-            finalChain.join(neighbor.chain);
+            if(neighbor.chain.stones !=null)
+                finalChain.join(neighbor.chain);
         }
     }
     finalChain.addStone(newStone);
+    
 }
 
 /**
@@ -86,8 +88,17 @@ public void checkStone(Stone stone) {
         for (Stone s : stone.chain.stones) {
             s.chain = null;
             stones[s.row][s.col] = null;
+            getScore(stone);
         }
+        System.out.println(String.format("Score Black: %d, White: %d",ScoreBlack, ScoreWhite));
     }
+}
+
+public void getScore(Stone stone){
+    if(stone.state == State.WHITE)
+        ScoreBlack++;
+    else
+        ScoreWhite++;
 }
 
 /**

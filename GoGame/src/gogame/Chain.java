@@ -32,7 +32,8 @@ public void addStone(Stone stone) {
 
 public void join(Chain chain) {
     for (Stone stone : chain.stones) {
-        addStone(stone);
+        stone.chain = this;
+        stones.add(stone);
     }
 }
 

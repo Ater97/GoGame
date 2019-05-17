@@ -3,13 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/sorantes/Documents/NetBeansProjects/GoGame/src/gogame/Chain.java</file>
-            <file>file:/C:/Users/sorantes/Documents/NetBeansProjects/GoGame/src/gogame/GoGame.java</file>
-            <file>file:/C:/Users/sorantes/Documents/NetBeansProjects/GoGame/src/gogame/AI.java</file>
-            <file>file:/C:/Users/sorantes/Documents/NetBeansProjects/GoGame/src/gogame/View.java</file>
-            <file>file:/C:/Users/sorantes/Documents/NetBeansProjects/GoGame/src/gogame/Grid.java</file>
-            <file>file:/C:/Users/sorantes/Documents/NetBeansProjects/GoGame/src/gogame/GameBoard.java</file>
-            <file>file:/C:/Users/sorantes/Documents/NetBeansProjects/GoGame/src/gogame/Stone.java</file>
+            <file>file:/C:/Users/sorantes/Documents/GitHub/GoGame/GoGame/src/gogame/Stone.java</file>
+            <file>file:/C:/Users/sorantes/Documents/GitHub/GoGame/GoGame/src/gogame/AI.java</file>
+            <file>file:/C:/Users/sorantes/Documents/GitHub/GoGame/GoGame/src/gogame/Chain.java</file>
+            <file>file:/C:/Users/sorantes/Documents/GitHub/GoGame/GoGame/src/gogame/Grid.java</file>
+            <file>file:/C:/Users/sorantes/Documents/GitHub/GoGame/GoGame/src/gogame/GameBoard.java</file>
+            <file>file:/C:/Users/sorantes/Documents/GitHub/GoGame/GoGame/src/gogame/GoGame.java</file>
         </group>
     </open-files>
 </project-private>
