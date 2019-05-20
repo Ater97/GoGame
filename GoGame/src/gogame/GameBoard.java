@@ -50,7 +50,6 @@ public GameBoard(Integer size) {
     AIplayer = new AI();
 
     this.addMouseListener(new MouseAdapter() {
-
         @Override
         public void mouseReleased(MouseEvent e) {
             repaint();
@@ -69,11 +68,9 @@ public GameBoard(Integer size) {
                 System.out.println("Suicide move of Black");
                 return;
             }
-
             grid.addStone(row, col, current_player);
             lastMove = new Point(col, row);
-            repaint();
-            
+            //repaint(); 
             grid = AIplayer.play(grid, lastMove);
             lastMove = AIplayer.getLastMove();
             // Switch current player
@@ -84,7 +81,6 @@ public GameBoard(Integer size) {
             */
             //repaint();
         }
-        
     });
 }
 public boolean checkSuicide(int row, int col, State player){

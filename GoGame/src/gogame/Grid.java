@@ -58,19 +58,18 @@ public void addStone(int row, int col, State state) {
         if (neighbor == null) {
             continue;
         }
-
         newStone.liberties--;
         neighbor.liberties--;
-
         // If it's different color than newStone check him
         if (neighbor.state != newStone.state) {
             checkStone(neighbor); 
             continue; 
         }
-
         if (neighbor.chain != null) {
-            if(neighbor.chain.stones !=null)
-                finalChain.join(neighbor.chain);
+            if(neighbor.chain.stones !=null){
+                //finalChain.join(neighbor.chain);
+                finalChain.stones.addAll(neighbor.chain.stones);
+            }      
         }
     }
     finalChain.addStone(newStone);

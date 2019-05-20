@@ -28,54 +28,53 @@ public class AI {
             row = ThreadLocalRandom.current().nextInt(0, SIZE);
             if(attempts<3)
                 getcoordinates();
+            attempts++;
        } while (!tryAddStone());
         System.out.println("Attempts " + attempts);
         return this.grid;
     }
     public void getcoordinates(){
-        attempts++;
         if(isSurrounded())
             return;   
         col = lasPoint.x;
         row = lasPoint.y;
-        if(!grid.isOccupied(lasPoint.x, lasPoint.y+1))
-            row = lasPoint.y+1;
-        else if(!grid.isOccupied(lasPoint.x+1, lasPoint.y))
-            col = lasPoint.x+1;
-        else if(!grid.isOccupied(lasPoint.x, lasPoint.y-1))
-            row = lasPoint.y-1;
-        else if(!grid.isOccupied(lasPoint.x-1, lasPoint.y))
-            col = lasPoint.x-1;
+        if(lasPoint.y+1+attempts<SIZE && !grid.isOccupied(lasPoint.x, lasPoint.y+1+attempts))
+            row = lasPoint.y+1+attempts;
+        else if(lasPoint.x+1+attempts<SIZE && !grid.isOccupied(lasPoint.x+1+attempts, lasPoint.y))
+            col = lasPoint.x+1+attempts;
+        else if(lasPoint.y-1-attempts>=0 && !grid.isOccupied(lasPoint.x, lasPoint.y-1-attempts))
+            row = lasPoint.y-1-attempts;
+        else if(lasPoint.x-1-attempts>=0 && !grid.isOccupied(lasPoint.x-1-attempts, lasPoint.y))
+            col = lasPoint.x-1-attempts;
     }
+     
     public boolean isSurrounded(){
-        for (int i = 0; i < SIZE-1; i++) {
-            for (int j = 0; j < SIZE-1; j++) {
+        for (int i = 0; i < SIZE; i++) { //col
+            for (int j = 0; j < SIZE; j++) { //row
                 if(grid.stones[i][j] !=null){
-                    Chain tempChain =grid.stones[i][j].chain;
-                    for(Stone stone:tempChain.stones){
-                        if(stone.state ==current_player){
-                            if(stone.liberties<=1) { 
-                                if(!grid.isOccupied(i+1, j)){
-                                    row = i+1;
-                                    col = j;
-                                }                             
-                                else if(!grid.isOccupied(i, j+1)){
-                                    col = j+1;
-                                    row = i;
-                                }  
-                                else if(!grid.isOccupied(i, j-1)){
-                                    col = j-1;
-                                    row =i;
-                                }     
-                                else if(!grid.isOccupied(i-1, j)){
-                                    row = i-1;
-                                    col =j;
-                                }       
-                                System.out.println("is surrounded");
-                                return true;
-                            }
+                    Stone stone =grid.stones[i][j];
+                    if(stone.state ==current_player){
+                        if(stone.liberties<=2 && stone.liberties > 0) { 
+                            if(i+1<SIZE && !grid.isOccupied(i+1, j)){
+                                row = i+1;
+                                col = j;
+                            }                             
+                            else if(j+1<SIZE && !grid.isOccupied(i, j+1)){
+                                row = i;
+                                col = j+1; 
+                            }  
+                            else if(j-1>=0 && !grid.isOccupied(i, j-1)){
+                                row = i;
+                                col = j-1;
+                            }     
+                            else if(i-1>=0 && !grid.isOccupied(i-1, j)){
+                                row = i-1;
+                                col = j;
+                            }       
+                            System.out.println("is surrounded");
+                            return true;
                         }
-                    }
+                    } 
                 }    
             }
         }
@@ -105,26 +104,24 @@ public class AI {
         }    
         else
             rigth = true;
-        if (row -1 > 0 ){
+        if (row -1 > 0){
             if( grid.isOccupiedByEnemy(row - 1, col, player))
                 left  = true;
         }
         else
             left = true;    
-        if (col +1 < SIZE ){
+        if (col +1 < SIZE){
             if( grid.isOccupiedByEnemy(row, col + 1, player)) 
                 up = true;   
         }
         else
             up = true;   
-        if (col -1 > 0 ){
+        if (col -1 > 0){
             if( grid.isOccupiedByEnemy(row, col - 1, player)) 
                 down = true;
         }
         else
             down = true;    
-
         return up && left && down && rigth;
-    }
-    
+    } 
 }
