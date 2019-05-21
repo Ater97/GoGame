@@ -1,40 +1,44 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package gogame;
 
 import gogame.GameBoard.State;
-
 import java.util.ArrayList;
 
 /**
- * A collection of adjacent Stone(s).
  *
+ * @author sorantes
  */
 public class Chain {
-
-public ArrayList<Stone> stones;
-public State state;
-
+    
+public ArrayList<Integer> stonesIDS = new ArrayList<>();
+public State state ;
+    
 public Chain(State state) {
-    stones = new ArrayList<>();
+    this.state = state;
 }
 
-public int getLiberties() {
-    int total = 0;
-    for (Stone stone : stones) {
-        total += stone.liberties;
-    }
-    return total;
+public void addStoneID(int ID){
+    int index = stonesIDS.indexOf(ID);
+    if(index < 0)
+        stonesIDS.add(ID);
 }
 
-public void addStone(Stone stone) {
-    stone.chain = this;
-    stones.add(stone);
+public void joinChains(Chain neighbor){
+    ArrayList<Integer> two = neighbor.stonesIDS;
+    two.stream()
+            .filter((x) -> (!stonesIDS.contains(x)))
+            .forEachOrdered((x) -> {
+                stonesIDS.add(x);
+    });
 }
 
-public void join(Chain chain) {
-    for (Stone stone : chain.stones) {
-        stone.chain = this;
-        stones.add(stone);
-    }
+public boolean containsID(int id){
+    if(stonesIDS.contains(id))
+        return true;
+    return false;
 }
-
 }

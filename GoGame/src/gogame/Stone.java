@@ -1,6 +1,7 @@
 package gogame;
 
 import gogame.GameBoard.State;
+import java.util.ArrayList;
 
 /**
  * Basic game element.
@@ -8,18 +9,21 @@ import gogame.GameBoard.State;
  */
 public class Stone {
 
-public Chain chain;
+public int chainID;
+public int id;
 public State state;
-public int liberties;
+public int liberties = 4;
 // Row and col are need to remove (set to null) this Stone from Grid
 public int row;
 public int col;
 
 public Stone(int row, int col, State state) {
-    chain = null;
     this.state = state;
-    liberties = 4;
     this.row = row;
     this.col = col;
+    id = row + 10*col;
+}
+public void setChainID(int ID){
+    this.chainID = ID;
 }
 }

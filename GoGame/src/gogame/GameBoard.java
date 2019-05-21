@@ -64,52 +64,28 @@ public GameBoard(Integer size) {
                 return;
             if (grid.isOccupied(row, col)) 
                 return;
-            if(checkSuicide(row, col, current_player)){
-                System.out.println("Suicide move of Black");
+            if(grid.checkSuicide(row, col, current_player)){
+                String player = (current_player == State.BLACK) ? "Black" :"White";
+                System.out.println("Suicide move of " + player);
                 return;
             }
             grid.addStone(row, col, current_player);
             lastMove = new Point(col, row);
-            //repaint(); 
-            grid = AIplayer.play(grid, lastMove);
-            lastMove = AIplayer.getLastMove();
-            // Switch current player
-            /* if (current_player == State.BLACK) 
-                current_player = State.WHITE;
-            else 
-                current_player = State.BLACK;
-            */
-            //repaint();
+            
+            //Change for human or AI
+            if(false){//Use AI player
+                grid = AIplayer.play(grid, lastMove);
+                lastMove = AIplayer.getLastMove();
+            }
+            else{ // Switch current player
+                if (current_player == State.BLACK) 
+                    current_player = State.WHITE;
+                else 
+                    current_player = State.BLACK;
+            }
+            repaint();
         }
     });
-}
-public boolean checkSuicide(int row, int col, State player){
-    boolean up = false, down = false, left = false, rigth = false;
-    if (row +1 < SIZE){
-        if( grid.isOccupiedByEnemy(row + 1, col, player)) 
-            rigth = true;
-    }    
-    else
-        rigth = true;
-    if (row -1 > 0 ){
-        if( grid.isOccupiedByEnemy(row - 1, col, player))
-            left  = true;
-    }
-    else
-        left = true;    
-    if (col +1 < SIZE ){
-        if( grid.isOccupiedByEnemy(row, col + 1, player)) 
-            up = true;   
-    }
-    else
-        up = true;   
-    if (col -1 > 0 ){
-        if( grid.isOccupiedByEnemy(row, col - 1, player)) 
-            down = true;
-    }
-    else
-        down = true;      
-    return up&&left&&down&&rigth;
 }
 
 @Override
