@@ -41,7 +41,7 @@ private Grid grid;
 private Point lastMove;
 private AI AIplayer;
 
-public GameBoard(Integer size) {
+public GameBoard(Integer size, boolean AI) {
     SIZE = (size==null && size==0) ? 9:size;
     N_OF_TILES = SIZE - 1;
     grid = new Grid(SIZE);
@@ -73,7 +73,7 @@ public GameBoard(Integer size) {
             lastMove = new Point(col, row);
             
             //Change for human or AI
-            if(false){//Use AI player
+            if(AI){//Use AI player
                 grid = AIplayer.play(grid, lastMove);
                 lastMove = AIplayer.getLastMove();
             }

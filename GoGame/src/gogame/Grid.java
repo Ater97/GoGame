@@ -101,7 +101,7 @@ public void checkStone(Stone stone) {
             getScore(stone);
         }
         stones[stone.row][stone.col] =null;
-        getScore(stone);
+        //getScore(stone);
         System.out.println(String.format("Score Black: %d, White: %d",ScoreBlack, ScoreWhite));
     }
     else
@@ -172,11 +172,6 @@ public void checkDeadChains(){
  */
 public boolean isOccupied(int row, int col) {
     return stones[row][col] != null;
-}
-public boolean isOccupiedByEnemy(int row, int col, StoneColor player) {
-    if(isOccupied(row, col))
-       return stones[row][col].state != player;
-    return false;
 }
 
 /**

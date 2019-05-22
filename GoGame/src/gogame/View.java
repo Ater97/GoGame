@@ -55,6 +55,7 @@ public class View extends javax.swing.JFrame {
         inpuSize = new javax.swing.JTextField();
         container = new javax.swing.JPanel();
         LabelOutput = new javax.swing.JLabel();
+        AI = new javax.swing.JCheckBox();
 
         jLabel15.setText("5");
 
@@ -86,6 +87,8 @@ public class View extends javax.swing.JFrame {
 
         LabelOutput.setText(".");
 
+        AI.setText("AI");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -98,7 +101,9 @@ public class View extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(inpuSize, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(139, 139, 139)
+                        .addGap(22, 22, 22)
+                        .addComponent(AI)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(LabelOutput)))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
@@ -110,7 +115,8 @@ public class View extends javax.swing.JFrame {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(inpuSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(inpuSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(AI)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addComponent(LabelOutput)))
@@ -137,7 +143,7 @@ public class View extends javax.swing.JFrame {
             }
             BORDER_SIZE = 25;
             container.setLayout(new BorderLayout());
-            GB = new GameBoard(SIZE);
+            GB = new GameBoard(SIZE,AI.isSelected());
             container.add(GB);
             container.setBorder(BorderFactory.createEmptyBorder(BORDER_SIZE, BORDER_SIZE, BORDER_SIZE, BORDER_SIZE));
         }
@@ -177,6 +183,7 @@ public class View extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox AI;
     private javax.swing.JLabel LabelOutput;
     private javax.swing.JPanel container;
     private javax.swing.JTextField inpuSize;

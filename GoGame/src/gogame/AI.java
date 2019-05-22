@@ -26,9 +26,9 @@ public class AI {
             //Temp random 
             col = ThreadLocalRandom.current().nextInt(0, SIZE);
             row = ThreadLocalRandom.current().nextInt(0, SIZE);
-            if(attempts<3)
+            if(attempts<2)
                 getcoordinates();
-            if(attempts>10)
+            if(attempts>5)
                 getEmptySpot();
             attempts++;
        } while (!tryAddStone());
