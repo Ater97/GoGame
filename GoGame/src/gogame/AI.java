@@ -101,12 +101,12 @@ public class AI {
     
     public void getEmptySpot(){
         for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < SIZE; j++) {
-            if(grid.stones[i][j]==null){
-                col = i;
-                row = j;
+            for (int j = 0; j < SIZE; j++) {
+                if(grid.stones[i][j]==null){
+                    col = i;
+                    row = j;
+                }
             }
         }
-    }
     }
 }

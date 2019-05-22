@@ -217,32 +217,46 @@ public boolean checkSuicide(int row, int col, StoneColor player){
     if (row +1 < SIZE){
         if(stones[row+1][col]==null)
             return false;
-        if(isOccupiedByEnemy(row + 1, col, player) || getLibertiesbySotone(stones[row+1][col])==1) 
-            rigth = true;
+        if(player == stones[row+1][col].state && getLibertiesbySotone(stones[row+1][col])==1) 
+            rigth = true;  
+        else if(player != stones[row+1][col].state && getLibertiesbySotone(stones[row+1][col])>1)
+            rigth = true;  
+        else 
+            return false;
     }    
     else
         rigth = true;
     if (row -1 > 0 ){
         if(stones[row-1][col]==null)
             return false;
-        if(isOccupiedByEnemy(row - 1, col, player) || getLibertiesbySotone(stones[row-1][col])==1)
+        if(stones[row-1][col].state == player && getLibertiesbySotone(stones[row-1][col])==1)
             left  = true;
+        else if(stones[row-1][col].state != player && getLibertiesbySotone(stones[row-1][col])>1)
+            left = true;  
+        else 
+            return false;
     }
     else
         left = true;    
     if (col +1 < SIZE ){
         if(stones[row][col+1]==null)
             return false;
-        if(isOccupiedByEnemy(row, col + 1, player) || getLibertiesbySotone(stones[row][col+1])==1) 
+        if(stones[row][col+1].state == player && getLibertiesbySotone(stones[row][col+1])==1) 
             up = true;   
+        else if(stones[row][col+1].state != player && getLibertiesbySotone(stones[row][col+1])>1)
+            up = true;  
+        else 
+            return false;
     }
     else
         up = true;   
     if (col -1 > 0 ){
         if(stones[row][col-1]==null)
             return false;
-        if(isOccupiedByEnemy(row, col - 1, player) || getLibertiesbySotone(stones[row][col-1])==1) 
+        if(stones[row][col-1].state == player && getLibertiesbySotone(stones[row][col-1])==1) 
             down = true;
+        else if(stones[row][col-1].state != player && getLibertiesbySotone(stones[row][col-1])>1) 
+            down = true;  
     }
     else
         down = true;      
