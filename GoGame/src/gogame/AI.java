@@ -15,7 +15,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class AI {
     private Grid grid;
     private int col = 0, row =0, SIZE, attempts;
-    private final GameBoard.State current_player = GameBoard.State.WHITE;
+    private final GameBoard.StoneColor current_player = GameBoard.StoneColor.WHITE;
     Point lasPoint;
     public Grid play(Grid grid, Point lastPoint) {
         this.grid = grid;
@@ -28,6 +28,8 @@ public class AI {
             row = ThreadLocalRandom.current().nextInt(0, SIZE);
             if(attempts<3)
                 getcoordinates();
+            if(attempts>10)
+                getEmptySpot();
             attempts++;
        } while (!tryAddStone());
         System.out.println("Attempts " + attempts);
@@ -54,7 +56,7 @@ public class AI {
                 if(grid.stones[i][j] !=null){
                     Stone stone =grid.stones[i][j];
                     if(stone.state ==current_player){
-                        if(stone.liberties<=2 && stone.liberties > 0) { 
+                        if(stone.liberties<=1 && stone.liberties > 0) { 
                             if(i+1<SIZE && !grid.isOccupied(i+1, j)){
                                 row = i+1;
                                 col = j;
@@ -95,5 +97,16 @@ public class AI {
         }     
         grid.addStone(row, col, current_player);
         return true;
+    }
+    
+    public void getEmptySpot(){
+        for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            if(grid.stones[i][j]==null){
+                col = i;
+                row = j;
+            }
+        }
+    }
     }
 }

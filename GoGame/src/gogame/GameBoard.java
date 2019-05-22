@@ -33,10 +33,10 @@ public static final int BORDER_SIZE = TILE_SIZE;
  * 
  *
  */
-public enum State {
+public enum StoneColor {
     BLACK, WHITE
 }
-private State current_player;
+private StoneColor current_player;
 private Grid grid;
 private Point lastMove;
 private AI AIplayer;
@@ -46,7 +46,7 @@ public GameBoard(Integer size) {
     N_OF_TILES = SIZE - 1;
     grid = new Grid(SIZE);
     // Black always starts
-    current_player = State.BLACK;
+    current_player = StoneColor.BLACK;
     AIplayer = new AI();
 
     this.addMouseListener(new MouseAdapter() {
@@ -65,7 +65,7 @@ public GameBoard(Integer size) {
             if (grid.isOccupied(row, col)) 
                 return;
             if(grid.checkSuicide(row, col, current_player)){
-                String player = (current_player == State.BLACK) ? "Black" :"White";
+                String player = (current_player == StoneColor.BLACK) ? "Black" :"White";
                 System.out.println("Suicide move of " + player);
                 return;
             }
@@ -78,11 +78,12 @@ public GameBoard(Integer size) {
                 lastMove = AIplayer.getLastMove();
             }
             else{ // Switch current player
-                if (current_player == State.BLACK) 
-                    current_player = State.WHITE;
+                if (current_player == StoneColor.BLACK) 
+                    current_player = StoneColor.WHITE;
                 else 
-                    current_player = State.BLACK;
+                    current_player = StoneColor.BLACK;
             }
+            grid.checkDeadChains();
             repaint();
         }
     });
@@ -110,9 +111,9 @@ protected void paintComponent(Graphics g) {
     // Iterate over intersections
     for (int row = 0; row < SIZE; row++) {
         for (int col = 0; col < SIZE; col++) {
-            State state = grid.getState(row, col);
+            StoneColor state = grid.getState(row, col);
             if (state != null) {
-                if (state == State.BLACK) {
+                if (state == StoneColor.BLACK) {
                     g2.setColor(Color.BLACK);
                 } else {
                     g2.setColor(Color.WHITE);

@@ -1,6 +1,6 @@
 package gogame;
 
-import gogame.GameBoard.State;
+import gogame.GameBoard.StoneColor;
 import java.util.ArrayList;
 
 /**
@@ -30,8 +30,8 @@ public Grid(int size) {
  * @param col
  * @param black
  */
-public void addStone(int row, int col, State state) {
-    String player = (state == State.BLACK) ? "Black" :"White";
+public void addStone(int row, int col, StoneColor state) {
+    String player = (state == StoneColor.BLACK) ? "Black" :"White";
     System.out.println(String.format("%s: y: %d, x: %d",player, row, col));
     Stone newStone = new Stone(row, col, state);
     stones[row][col] = newStone;
@@ -78,6 +78,7 @@ public void addStone(int row, int col, State state) {
             newChain.joinChains(neighborChain);
         else
             newChain.addStoneID(stones[neighborRow][neighborCol].id);
+        
     }
     chains.add(newChain);
 }
@@ -106,6 +107,7 @@ public void checkStone(Stone stone) {
     else
         chains.add(chain);
 }
+
 
 public int getLiberties(Chain s){
     if(s!=null){
@@ -147,12 +149,20 @@ public void increaseNeighborsLiberties(Stone s){
 }
 
 public void getScore(Stone stone){
-    if(stone.state == State.WHITE)
+    if(stone.state == StoneColor.WHITE)
         ScoreBlack++;
     else
         ScoreWhite++;
 }
-
+public void checkDeadChains(){
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            if(stones[i][j]!=null){
+                checkStone(stones[i][j]);
+            }
+        }
+    }
+}
 /**
  * Returns true if given position is occupied by any stone
  * 
@@ -163,21 +173,21 @@ public void getScore(Stone stone){
 public boolean isOccupied(int row, int col) {
     return stones[row][col] != null;
 }
-public boolean isOccupiedByEnemy(int row, int col, State player) {
+public boolean isOccupiedByEnemy(int row, int col, StoneColor player) {
     if(isOccupied(row, col))
        return stones[row][col].state != player;
     return false;
 }
 
 /**
- * Returns State (black/white) of given position or null if it's unoccupied.
+ * Returns StoneColor (black/white) of given position or null if it's unoccupied.
  * Needs valid row and column.
  * 
  * @param row
  * @param col
  * @return
  */
-public State getState(int row, int col) {
+public StoneColor getState(int row, int col) {
     Stone stone = stones[row][col];
     if (stone == null) {
         return null;
@@ -202,7 +212,7 @@ public int getLibertiesbySotone(Stone stone){
     return 0;
 }
 
-public boolean checkSuicide(int row, int col, State player){
+public boolean checkSuicide(int row, int col, StoneColor player){
     boolean up = false, down = false, left = false, rigth = false;
     if (row +1 < SIZE){
         if(stones[row+1][col]==null)

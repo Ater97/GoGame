@@ -5,7 +5,7 @@
  */
 package gogame;
 
-import gogame.GameBoard.State;
+import gogame.GameBoard.StoneColor;
 import java.util.ArrayList;
 
 /**
@@ -15,9 +15,9 @@ import java.util.ArrayList;
 public class Chain {
     
 public ArrayList<Integer> stonesIDS = new ArrayList<>();
-public State state ;
+public StoneColor state ;
     
-public Chain(State state) {
+public Chain(StoneColor state) {
     this.state = state;
 }
 

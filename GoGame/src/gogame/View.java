@@ -19,10 +19,8 @@ public class View extends javax.swing.JFrame {
     /**
      * Creates new form View
      */
-    private int SIZE = 9;
-    private int N_OF_TILES = SIZE - 1;
-    private int TILE_SIZE = 40;
-    private int BORDER_SIZE = TILE_SIZE;
+    private int SIZE;
+    private int BORDER_SIZE;
     private GameBoard GB;
 /**
   Black/white player/stone
@@ -131,7 +129,12 @@ public class View extends javax.swing.JFrame {
     private void inpuSizeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inpuSizeKeyPressed
         // TODO add your handling code here:        
         if(evt.getKeyCode()==10){
-            SIZE =Integer.parseInt(inpuSize.getText());
+            try{
+                SIZE = Integer.valueOf(inpuSize.getText());
+            }
+            catch(Exception e){
+                SIZE = 9;
+            }
             BORDER_SIZE = 25;
             container.setLayout(new BorderLayout());
             GB = new GameBoard(SIZE);
